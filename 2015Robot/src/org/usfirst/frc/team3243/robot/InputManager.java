@@ -31,7 +31,7 @@ public class InputManager extends Robot {
 		axis[2] = ps2controller.getRawAxis(3);
 		axis = deadZone(axis);
 		return axis;
-		)
+		
 		
 	}
 	

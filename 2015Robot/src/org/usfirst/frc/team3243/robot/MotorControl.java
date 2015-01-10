@@ -16,6 +16,5 @@ public class MotorControl {
 		BaRi = new Victor(1);
 	}
 	
-	
-
+	public 
 }
