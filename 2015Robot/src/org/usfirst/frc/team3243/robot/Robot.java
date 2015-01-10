@@ -2,6 +2,8 @@
 package org.usfirst.frc.team3243.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.util.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -15,8 +17,15 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+	
+	protected static InputManager IM;
+	
+	
     public void robotInit() {
-
+    
+    	IM = new InputManager();
+    	IM.init();
+    	
     }
 
     /**
