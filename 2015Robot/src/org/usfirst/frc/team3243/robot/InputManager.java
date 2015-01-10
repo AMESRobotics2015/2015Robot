@@ -18,6 +18,12 @@ public class InputManager extends Robot {
 		
 	}
 	
+	public static double [] getFinalAxis(){
+		double[] mtrval = new double[2];
+		mtrval = ramp(getAxisValue());
+		return mtrval;
+	}
+	
 	public static double[] getAxisValue(){
 		
 		axis[0] = ps2controller.getRawAxis(2);//y axis 
@@ -25,6 +31,7 @@ public class InputManager extends Robot {
 		axis[2] = ps2controller.getRawAxis(3);
 		axis = deadZone(axis);
 		return axis;
+		)
 		
 	}
 	
@@ -40,7 +47,7 @@ public class InputManager extends Robot {
 	public static double[] ramp(double[] axis){
 		for (byte si = 0; si<2; si++){
 			
-			axis[si] = (((.667)*(axis[si]*axis[si]*axis[si]))+((.333)*(axis[si])));
+			axis[si] = (((.667)*(Math.pow(axis[si], 3)))+((.333)*(axis[si])));
 			
 		}
 		return (axis);

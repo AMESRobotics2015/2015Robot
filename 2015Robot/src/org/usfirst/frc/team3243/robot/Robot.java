@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3243.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.util.*;
 
@@ -19,12 +20,13 @@ public class Robot extends IterativeRobot {
      */
 	
 	protected static InputManager IM;
-	
+	//protected static Watchdog WD;
 	
     public void robotInit() {
-    
     	IM = new InputManager();
     	IM.init();
+    	
+    	
     	
     }
 
@@ -39,6 +41,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	
+    	
         
     }
     
