@@ -20,11 +20,13 @@ public class Robot extends IterativeRobot {
      */
 	
 	protected static InputManager IM;
+	protected static MotorControl MC;
 	//protected static Watchdog WD;
 	
     public void robotInit() {
     	IM = new InputManager();
     	IM.init();
+    	MC = new MotorControl();
     	
     	
     	
@@ -41,9 +43,10 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	
-    	
-        
+    	while(isOperatorControl() && isEnabled()){
+    		
+    	}
+    	   
     }
     
     /**
