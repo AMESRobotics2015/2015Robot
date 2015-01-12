@@ -4,19 +4,21 @@ import edu.wpi.first.wpilibj.*;
 
 public class MotorControl {
 	
-	protected static Victor FrLe;
-	protected static Victor FrRi;
-	protected static Victor BaLe;
-	protected static Victor BaRi;
+	protected static Victor A;
+	protected static Victor B;
+	protected static Victor C;
+	protected static Victor D;
 	
 	public void init(){
-		FrLe = new Victor(3);
-		FrRi = new Victor(0);
-		BaLe = new Victor(2);
-		BaRi = new Victor(1);
+		
+		A = new Victor(0);
+		B = new Victor(1);
+		C = new Victor(2);
+		D = new Victor(3);
+		
 	}
 	
-	public void driveomni(){
+	public void driveomni(double[] driv){
 		
 	}
 }

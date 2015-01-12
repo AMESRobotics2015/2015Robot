@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	while(isOperatorControl() && isEnabled()){
-    		
+    		MC.driveomni(IM.getFinalAxis());
     	}
     	   
     }

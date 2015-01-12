@@ -24,7 +24,7 @@ public class InputManager extends Robot {
 	 * @return
 	 */
 	public static double [] getFinalAxis(){
-		return ramp(getAxisValue());
+		return (getAxisValue());//can add ramp later...
 		//three things happen in this class.
 		//1)you get axis values
 		//2)then you deadzone the values
@@ -60,7 +60,7 @@ public class InputManager extends Robot {
 	 * @param axis
 	 * @return
 	 */
-	public static double[] ramp(double[] axis){
+/*	public static double[] ramp(double[] axis){
 		for (int i = 0; i<2; i++){
 			
 			axis[i] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
@@ -68,5 +68,6 @@ public class InputManager extends Robot {
 		}
 		return (axis);
 	}
+	*/
 
 }
