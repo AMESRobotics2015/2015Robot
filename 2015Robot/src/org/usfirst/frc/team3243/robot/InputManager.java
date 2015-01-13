@@ -5,7 +5,12 @@ import edu.wpi.first.wpilibj.*;
 
 public class InputManager extends Robot {
 	
-	static double[] axis = new double [3];//holds the input value from our left/right controllers
+	static double[] axis = new double [2];//holds the input value from our left/right controllers
+	static double[] mota = new double [2];
+	static double[] motb = new double [2];
+	static double[] motc = new double [2];
+	static double[] motd = new double [2];
+	static double[] fnlaxis = new double [3];
 	
 	protected static Joystick ps2controller;//our controller
 	
@@ -24,7 +29,7 @@ public class InputManager extends Robot {
 	 * @return
 	 */
 	public static double [] getFinalAxis(){
-		return (getAxisValue());//can add ramp later...
+		return (ramp(getAxisValue()));//can add ramp later...
 		//three things happen in this class.
 		//1)you get axis values
 		//2)then you deadzone the values
@@ -60,14 +65,47 @@ public class InputManager extends Robot {
 	 * @param axis
 	 * @return
 	 */
-/*	public static double[] ramp(double[] axis){
+	public static double[] ramp(double[] axis){
+		
+		double fina, finb, finc, find;
+		
 		for (int i = 0; i<2; i++){
-			
-			axis[i] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+			for(byte num = 0; num < 4; num++) {
+				if(num==0){
+				mota[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				mota[1] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				mota[2] = mota[0] + mota[1];
+				}else if(num ==1){
+				motb[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motb[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motb[2] = motb[0] + motb[1];
+				finb = motb[2];
+				}else if(num ==2){
+				motc[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motc[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motc[2] = motc[0] + motc[1];
+				finc = motc[2];
+				}else if(num ==3){
+				motd[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motd[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motd[2] = motd[0] + motd[1];	
+				find = motd[2];
+				}
 			//if you want to graph it, it is y=0.66x^3+0.33x
+			}
 		}
-		return (axis);
+		
+		fnlaxis[0] = mota[2];
+		fnlaxis[1] = motb[2];
+		fnlaxis[2] = motc[2];
+		fnlaxis[3] = motd[2];
+		
+		return (fnlaxis);
 	}
-	*/
+	
+	public static double[] limit(double[] axis){
+		
+	}
+	
 
 }

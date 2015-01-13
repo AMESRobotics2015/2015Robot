@@ -18,7 +18,14 @@ public class MotorControl {
 		
 	}
 	
-	public void driveomni(double[] driv){
-		
+	//driv[0] is y axis
+	//driv[1] is x axis
+	
+	public void driveomni(double[] driv){	
+			A.set(driv[0]);	
+			B.set(driv[1]);
+			C.set(driv[2]);
+			D.set(driv[3]);
+				
 	}
 }
