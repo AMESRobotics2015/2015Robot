@@ -67,8 +67,6 @@ public class InputManager extends Robot {
 	 */
 	public static double[] ramp(double[] axis){
 		
-		double fina, finb, finc, find;
-		
 		for (int i = 0; i<2; i++){
 			for(byte num = 0; num < 4; num++) {
 				if(num==0){
@@ -79,17 +77,14 @@ public class InputManager extends Robot {
 				motb[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
 				motb[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
 				motb[2] = motb[0] + motb[1];
-				finb = motb[2];
 				}else if(num ==2){
 				motc[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
 				motc[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
 				motc[2] = motc[0] + motc[1];
-				finc = motc[2];
 				}else if(num ==3){
 				motd[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
 				motd[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
 				motd[2] = motd[0] + motd[1];	
-				find = motd[2];
 				}
 			//if you want to graph it, it is y=0.66x^3+0.33x
 			}
@@ -102,10 +97,10 @@ public class InputManager extends Robot {
 		
 		return (fnlaxis);
 	}
-	
+/*	
 	public static double[] limit(double[] axis){
 		
 	}
-	
+*/	
 
 }
