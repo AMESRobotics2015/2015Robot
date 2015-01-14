@@ -29,7 +29,7 @@ public class InputManager extends Robot {
 	 * @return
 	 */
 	public static double [] getFinalAxis(){
-		return (ramp(getAxisValue()));//can add ramp later...
+		return (ramp(getAxisValue()));
 		//three things happen in this class.
 		//1)you get axis values
 		//2)then you deadzone the values
@@ -67,28 +67,28 @@ public class InputManager extends Robot {
 	 */
 	public static double[] ramp(double[] axis){
 		
-		for (int i = 0; i<2; i++){
+		
 			for(byte num = 0; num < 4; num++) {
 				if(num==0){
-				mota[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
-				mota[1] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				mota[0] = (((.667)*(Math.pow(axis[0], 3)))+((.333)*(axis[0])));
+				mota[1] = (((.667)*(Math.pow(axis[1], 3)))+((.333)*(axis[1])));
 				mota[2] = mota[0] + mota[1];
 				}else if(num ==1){
-				motb[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
-				motb[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motb[0] = (((.667)*(Math.pow(axis[0], 3)))+((.333)*(axis[0])));
+				motb[0] = (((.667)*(Math.pow(axis[1], 3)))+((.333)*(axis[1])));
 				motb[2] = motb[0] + motb[1];
 				}else if(num ==2){
-				motc[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
-				motc[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motc[0] = (((.667)*(Math.pow(axis[0], 3)))+((.333)*(axis[0])));
+				motc[0] = (((.667)*(Math.pow(axis[1], 3)))+((.333)*(axis[1])));
 				motc[2] = motc[0] + motc[1];
 				}else if(num ==3){
-				motd[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
-				motd[0] = (((.667)*(Math.pow(axis[i], 3)))+((.333)*(axis[i])));
+				motd[0] = (((.667)*(Math.pow(axis[0], 3)))+((.333)*(axis[0])));
+				motd[0] = (((.667)*(Math.pow(axis[1], 3)))+((.333)*(axis[1])));
 				motd[2] = motd[0] + motd[1];	
 				}
 			//if you want to graph it, it is y=0.66x^3+0.33x
 			}
-		}
+		
 		
 		fnlaxis[0] = mota[2];
 		fnlaxis[1] = motb[2];
