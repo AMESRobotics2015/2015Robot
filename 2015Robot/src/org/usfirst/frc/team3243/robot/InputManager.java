@@ -5,12 +5,7 @@ import edu.wpi.first.wpilibj.*;
 
 public class InputManager extends Robot {
 	
-	static double[] axis = new double [2];//holds the input value from our left/right controllers
-	static double[] mota = new double [2];
-	static double[] motb = new double [2];
-	static double[] motc = new double [2];
-	static double[] motd = new double [2];
-	static double[] fnlaxis = new double [3];
+	static double[] axis = new double [3];//holds the input value from our left/right controllers
 	
 	protected static Joystick ps2controller;//our controller
 	
@@ -67,40 +62,13 @@ public class InputManager extends Robot {
 	 */
 	public static double[] ramp(double[] axis){
 		
-		
-			for(byte num = 0; num < 4; num++) {
-				if(num==0){
-				mota[0] = (((.667)*(Math.pow(axis[0], 3)))+((.333)*(axis[0])));
-				mota[1] = (((.667)*(Math.pow(axis[1], 3)))+((.333)*(axis[1])));
-				mota[2] = mota[0] + mota[1];
-				}else if(num ==1){
-				motb[0] = (((.667)*(Math.pow(axis[0], 3)))+((.333)*(axis[0])));
-				motb[0] = (((.667)*(Math.pow(axis[1], 3)))+((.333)*(axis[1])));
-				motb[2] = motb[0] + motb[1];
-				}else if(num ==2){
-				motc[0] = (((.667)*(Math.pow(axis[0], 3)))+((.333)*(axis[0])));
-				motc[0] = (((.667)*(Math.pow(axis[1], 3)))+((.333)*(axis[1])));
-				motc[2] = motc[0] + motc[1];
-				}else if(num ==3){
-				motd[0] = (((.667)*(Math.pow(axis[0], 3)))+((.333)*(axis[0])));
-				motd[0] = (((.667)*(Math.pow(axis[1], 3)))+((.333)*(axis[1])));
-				motd[2] = motd[0] + motd[1];	
-				}
 			//if you want to graph it, it is y=0.66x^3+0.33x
-			}
 		
+		for(byte x = 0; x < 3 ; x++){
+			axis[x] = (0.6667 * (Math.pow(axis[x], 3))+(0.333 * axis[x]));
+		}
 		
-		fnlaxis[0] = mota[2];
-		fnlaxis[1] = motb[2];
-		fnlaxis[2] = motc[2];
-		fnlaxis[3] = motd[2];
-		
-		return (fnlaxis);
-	}
-/*	
-	public static double[] limit(double[] axis){
-		
-	}
-*/	
+		return (axis);
+	}	
 
 }

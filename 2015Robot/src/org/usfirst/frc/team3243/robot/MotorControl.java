@@ -9,6 +9,8 @@ public class MotorControl {
 	protected static Victor C;
 	protected static Victor D;
 	
+	static double[] drv= new double[4];
+	
 	public void init(){
 		
 		A = new Victor(0);
@@ -18,14 +20,24 @@ public class MotorControl {
 		
 	}
 	
-	//driv[0] is y axis
-	//driv[1] is x axis
-	
-	public void driveomni(double[] driv){	
-			A.set(driv[0]);	
-			B.set(driv[1]);
-			C.set(driv[2]);
-			D.set(driv[3]);
+	public void driveomni(double[] driv){
+		
+		finaldrv(driv);
+		
+			A.set(drv[0]);	
+			B.set(drv[1]);
+			C.set(drv[2]);
+			D.set(drv[3]);
 				
+	}
+	
+	public double[] finaldrv(double[] driv){
+		
+		drv[0] = driv[0] - driv[1] + driv[2];
+		drv[1] = driv[0] + driv[1] + driv[2];
+		drv[2] = -driv[0] + driv[1] + driv[2];
+		drv[3] = -driv[0] - driv[1] + driv[2];
+		
+		return drv;
 	}
 }
