@@ -19,14 +19,15 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
 	
-	protected static InputManager IM;
-	protected static MotorControl MC;
+	private static InputManager IM;
+	private static MotorControl MC;
 	//protected static Watchdog WD;
 	
     public void robotInit() {
     	IM = new InputManager();
     	IM.init();
     	MC = new MotorControl();
+    	MC.init();
     	
     	
     	
