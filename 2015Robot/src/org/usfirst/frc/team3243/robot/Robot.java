@@ -25,9 +25,9 @@ public class Robot extends IterativeRobot {
 	//protected static Watchdog WD;
 	
     public void robotInit() {
-    	IM = new InputManager();
+    	//IM = new InputManager();
     	IM.init();
-    	MC = new MotorControl();
+    	//MC = new MotorControl();
     	MC.init();
     	
     	
