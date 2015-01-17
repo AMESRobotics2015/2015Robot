@@ -24,7 +24,7 @@ public class MotorControl {
 		
 		finaldrv(driv);
 		
-			A.set(drv[0]);	
+			A.set(drv[0]);
 			B.set(drv[1]);
 			C.set(drv[2]);
 			D.set(drv[3]);
@@ -33,10 +33,10 @@ public class MotorControl {
 	
 	public double[] finaldrv(double[] driv){
 		
-		drv[0] = driv[0] - driv[1] + driv[2];
-		drv[1] = driv[0] + driv[1] + driv[2];
-		drv[2] = -driv[0] + driv[1] + driv[2];
-		drv[3] = -driv[0] - driv[1] + driv[2];
+		drv[0] = driv[0] - driv[1];// + driv[2];
+		drv[1] = driv[0] + driv[1];// + driv[2];
+		drv[2] = -driv[0] + driv[1];// + driv[2];
+		drv[3] = -driv[0] - driv[1];// + driv[2];
 		
 		return drv;
 	}
