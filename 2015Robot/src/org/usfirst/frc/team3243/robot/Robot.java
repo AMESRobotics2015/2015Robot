@@ -3,10 +3,6 @@ package org.usfirst.frc.team3243.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
-
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.util.*;
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
