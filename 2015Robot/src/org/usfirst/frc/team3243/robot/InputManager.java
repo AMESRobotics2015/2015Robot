@@ -12,7 +12,7 @@ public class InputManager {
 	protected static int rampUpNum = 3;//used for ramp up
 	
 	//initializes the controller
-	public void init() {
+	public InputManager() {
 		
 		ps2controller = new Joystick(1);
 		//rampUpNum = int

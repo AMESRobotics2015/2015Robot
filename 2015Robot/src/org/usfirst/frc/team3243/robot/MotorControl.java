@@ -11,7 +11,7 @@ public class MotorControl {
 	
 	static double[] drv= new double[4];
 	
-	public void init(){
+	public MotorControl(){
 		
 		A = new Victor(0);
 		B = new Victor(1);
