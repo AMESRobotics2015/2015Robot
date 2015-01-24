@@ -2,7 +2,9 @@
 package org.usfirst.frc.team3243.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-
+import edu.wpi.first.wpilibj.DriverStation;
+import java.lang.System;
+//import edu.wpi.first.wpilibj
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -18,12 +20,13 @@ public class Robot extends IterativeRobot {
 	
 	private static InputManager IM;
 	private static MotorControl MC;
+	private static Sensors S;
 	//protected static Watchdog WD;
 	
     public void robotInit() {
     	IM = new InputManager();
     	MC = new MotorControl();
-    	
+    	S = new Sensors();
     	
     	
     }
@@ -39,7 +42,11 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	//while(true){
     		MC.driveomni(IM.getFinalAxis());
+    		double fin = S.gyread();
+    		System.out.println(fin);
+    	//}
     	   
     }
     

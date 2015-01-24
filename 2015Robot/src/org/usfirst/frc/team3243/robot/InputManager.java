@@ -3,7 +3,7 @@ package org.usfirst.frc.team3243.robot;
 import edu.wpi.first.wpilibj.*;
 
 
-public class InputManager {
+public class InputManager{
 	
 	static double[] axis = new double [3];//holds the input value from our left/right controllers
 	
@@ -14,7 +14,7 @@ public class InputManager {
 	//initializes the controller
 	public InputManager() {
 		
-		ps2controller = new Joystick(1);
+		ps2controller = new Joystick(0);
 		//rampUpNum = int
 		
 	}
@@ -33,9 +33,9 @@ public class InputManager {
 	
 	public static double[] getAxisValue(){
 		
-		axis[0] = ps2controller.getRawAxis(1);//y axis 
-		axis[1] = -ps2controller.getRawAxis(0);//x axis
-		axis[2] = ps2controller.getRawAxis(2);//pivioting
+		axis[0] = ps2controller.getRawAxis(3);//y axis 
+		axis[1] = ps2controller.getRawAxis(2);//x axis
+		axis[2] = ps2controller.getRawAxis(0);//pivioting
 		axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
 		return axis;
 		

@@ -28,16 +28,31 @@ public class MotorControl {
 			B.set(drv[1]);
 			C.set(drv[2]);
 			D.set(drv[3]);
-				
+		
 	}
 	
 	public double[] finaldrv(double[] driv){
+		/*
+		drv[0] = (driv[0] * .5) - (driv[1] * .5) + (driv[2] * .6);
+		drv[1] = (driv[0] * .5) + driv[1] * .5 + (driv[2] * .6);
+		drv[2] = -(driv[0] * .5) + (driv[1] * .5) + (driv[2] * .6);
+		drv[3] = -(driv[0] * .5) - (driv[1] * .5) + (driv[2] * .6);
+		*/
+		/*
+		drv[0] = (driv[2]);
+		drv[1] = (driv[2]);
+		drv[2] = (driv[2]);
+		drv[3] = (driv[2]);
+		*/
 		
-		drv[0] = driv[0] - driv[1];// + driv[2];
-		drv[1] = driv[0] + driv[1];// + driv[2];
-		drv[2] = -driv[0] + driv[1];// + driv[2];
-		drv[3] = -driv[0] - driv[1];// + driv[2];
-		
+		drv[0] = (driv[0] * .75) - (driv[1] * .75) + (driv[2]);
+		System.out.println("A: " + drv[0]);
+		drv[1] = ((driv[0] * .75) + driv[1] * .75 + (driv[2])) * -.96;
+		System.out.println("B: " + drv[1]);
+		drv[2] = -(driv[0] * .75) + (driv[1] * .75) + (driv[2]);
+		System.out.println("C: " + drv[2]);
+		drv[3] = (-(driv[0] * .75) - (driv[1] * .75) + (driv[2])) * -.96;
+		System.out.println("D: " + drv[3]);
 		return drv;
 	}
 }
