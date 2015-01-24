@@ -2,19 +2,19 @@ package org.usfirst.frc.team3243.robot;
 
 import edu.wpi.first.wpilibj.*;
 
-
 public class InputManager{
 	
 	static double[] axis = new double [3];//holds the input value from our left/right controllers
 	
 	protected static Joystick ps2controller;//our controller
-	
+	protected static Joystick gamecontroller;//game piece
 	protected static int rampUpNum = 3;//used for ramp up
 	
-	//initializes the controller
+	//initializes the controllers
 	public InputManager() {
 		
 		ps2controller = new Joystick(0);
+		gamecontroller = new Joystick (1);
 		//rampUpNum = int
 		
 	}
@@ -39,6 +39,12 @@ public class InputManager{
 		axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
 		return axis;
 		
+		
+	}
+	
+	public static boolean getGyroResetButton()
+	{
+		 return gamecontroller.getRawButton(2);
 		
 	}
 	

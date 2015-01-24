@@ -46,8 +46,13 @@ public class Robot extends IterativeRobot {
     		MC.driveomni(IM.getFinalAxis());
     		double fin = S.gyread();
     		System.out.println(fin);
+    		if(IM.getGyroResetButton())
+    		{
+    			S.G.reset();
+    		}
+    		
     	//}
-    	   
+    	  
     }
     
     /**
