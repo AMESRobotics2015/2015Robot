@@ -12,9 +12,9 @@ import java.util.Timer;
 
 
 public class Recorder implements java.io.Serializable {
-	static ArrayList<Double> Data0 = new ArrayList<Double>();
-	static ArrayList<Double> Data1 = new ArrayList<Double>();
-	static ArrayList<Double> Data2 = new ArrayList<Double>();
+	ArrayList<Double> Data0 = new ArrayList<Double>();
+	ArrayList<Double> Data1 = new ArrayList<Double>();
+	ArrayList<Double> Data2 = new ArrayList<Double>();
 	static Timer stopRecord= new Timer();
 	static int counter = getCounter();
 	static int planNumber = 0;
@@ -39,27 +39,30 @@ public class Recorder implements java.io.Serializable {
 	
 	public void getData(double[] array){
 		if(RobotMap.clearData){
-			Data0.clear();
-			Data1.clear();
-			Data2.clear();
+			Robot.getR().Data0.clear();
+			Robot.getR().Data1.clear();
+			Robot.getR().Data2.clear();
 			RobotMap.clearData = false;
 		}else if (RobotMap.isRecording){
-		Data0.add(array[0]);
-		Data1.add(array[1]);
-		Data2.add(array[2]);
-		stopRecord.schedule(new recordingTimer(), 15000);
+			
+		Robot.getR().Data0.add(array[0]);
+		Robot.getR().Data1.add(array[1]);
+		Robot.getR().Data2.add(array[2]);
+		if (RobotMap.timerOn){
+			stopRecord.schedule(new recordingTimer(), 15000);
+			RobotMap.timerOn = false;
+			}
 		}
 	}
 	
 	public void writeData(){
-		Recorder writer = new Recorder();
 		try
 	      {
 			counter++;
 	         FileOutputStream fileOut =
 	         new FileOutputStream("./" + "Recording" + counter + ".JSON");
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(writer);
+	         out.writeObject(Robot.getR());
 	         out.close();
 	         fileOut.close();	
 	         RobotMap.clearData = true;       
@@ -73,7 +76,7 @@ public class Recorder implements java.io.Serializable {
 		 
 		try
 	      {
-	         FileInputStream fileIn = new FileInputStream("./" + planNumber + ".JSON");
+	         FileInputStream fileIn = new FileInputStream("./" + "Recording" + planNumber + ".JSON");
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
 	         reader = (Recorder) in.readObject();
 	         in.close();
@@ -93,9 +96,9 @@ public class Recorder implements java.io.Serializable {
 			playArray[1]=0;
 			playArray[2]=0;
 		}else{
-			playArray[0]=Data0.get(RobotMap.playIncrement);
-			playArray[1]=Data1.get(RobotMap.playIncrement);
-			playArray[2]=Data2.get(RobotMap.playIncrement);
+			playArray[0]=readData().Data0.get(RobotMap.playIncrement);
+			playArray[1]=readData().Data1.get(RobotMap.playIncrement);
+			playArray[2]=readData().Data2.get(RobotMap.playIncrement);
 			++RobotMap.playIncrement;
 		}
 		

@@ -10,4 +10,5 @@ boolean gyroReset = false;
 public static boolean isRecording = false;
 public static int playIncrement=0;
 public static boolean clearData = false;
+public static boolean timerOn = false;
 }
