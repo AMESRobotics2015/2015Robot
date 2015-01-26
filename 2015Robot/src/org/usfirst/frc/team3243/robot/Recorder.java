@@ -12,21 +12,27 @@ import java.util.Timer;
 
 
 public class Recorder implements java.io.Serializable {
-	ArrayList<Double> Data0 = new ArrayList<Double>();
-	ArrayList<Double> Data1 = new ArrayList<Double>();
-	ArrayList<Double> Data2 = new ArrayList<Double>();
-	static Timer stopRecord= new Timer();
-	static int counter = getCounter();
-	static int planNumber = 0;
-	static boolean isRead= false;
+	ArrayList<Double> IOData0 = new ArrayList<Double>();//creates 3 object-specific arraylists
+	ArrayList<Double> IOData1 = new ArrayList<Double>();
+	ArrayList<Double> IOData2 = new ArrayList<Double>();
+	static ArrayList<Double> Data0 = new ArrayList<Double>();//creates 3 static arraylists
+	static ArrayList<Double> Data1 = new ArrayList<Double>();
+	static ArrayList<Double> Data2 = new ArrayList<Double>();
+	Recorder IO = new Recorder();//create class-wide object for I/O
+	static Timer stopRecord= new Timer(); //creates timer object to stop recording after 15 seconds
+	static int counter = getCounter();//sets value of recording counter to the last recording value
+	static int planNumber = 0;//number of plan to execute on playback
+	static boolean isRead= false;//checks to see if the file was correctly read
+	static boolean startRecord = false;
 	
-	private class recordingTimer extends TimerTask{
+	private class recordingTimer extends TimerTask{//creates task to run after15 seconds
 
 		@Override
 		public void run() {
-			writeData();
-			RobotMap.isRecording = false;
-			setCounter();
+			writeData();//writes data to file
+			RobotMap.isRecording = false;//stops recording
+			setCounter();//saves counter
+			startRecord = false;
 		}
 		
 	}
@@ -37,35 +43,45 @@ public class Recorder implements java.io.Serializable {
 	
 	
 	
-	public void getData(double[] array){
-		if(RobotMap.clearData){
-			Robot.getR().Data0.clear();
-			Robot.getR().Data1.clear();
-			Robot.getR().Data2.clear();
-			RobotMap.clearData = false;
-		}else if (RobotMap.isRecording){
+	public void getData(double[] array){//gets data from joystick array
+		if (array[0]!=0 || array[1]!=0 || array[2]!=0 ){//checks to see if joystick value != 0 
+			startRecord = true;//sets recording to begin
+			RobotMap.timerOn = true;//sets timer to begin
+		}
+		if(RobotMap.clearData){//clears data if not already cleared
+			Data0.clear();
+			Data1.clear();
+			Data2.clear();
+			RobotMap.clearData = false;//stops clearing of data
+		}else if (RobotMap.isRecording && startRecord){//starts recording if button is pressed and joystick has been changed
 			
-		Robot.getR().Data0.add(array[0]);
-		Robot.getR().Data1.add(array[1]);
-		Robot.getR().Data2.add(array[2]);
-		if (RobotMap.timerOn){
-			stopRecord.schedule(new recordingTimer(), 15000);
-			RobotMap.timerOn = false;
+		Data0.add(array[0]);//records data to static arraylists
+		Data1.add(array[1]);
+		Data2.add(array[2]);
+		if (RobotMap.timerOn){//starts timer if told to do so
+			stopRecord.schedule(new recordingTimer(), 15000);//schedules stop in 15 seconds
+			RobotMap.timerOn = false;//stops timer
 			}
 		}
+		
 	}
 	
-	public void writeData(){
+	public void writeData(){//writees data to file
 		try
 	      {
-			counter++;
+			
+				IO.IOData0 = Data0;//sets object arraylists tostatic ones
+				IO.IOData1 = Data1;
+				IO.IOData2 = Data2;
+			
+			++counter;//increments # of recording
 	         FileOutputStream fileOut =
-	         new FileOutputStream("./" + "Recording" + counter + ".JSON");
+	         new FileOutputStream("./" + "Recording" + counter + ".JSON");//outputs recording and # to a json
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(Robot.getR());
+	         out.writeObject(IO);//writes IO recorder object to file
 	         out.close();
 	         fileOut.close();	
-	         RobotMap.clearData = true;       
+	         RobotMap.clearData = true;//sets data to clear on next run       
 	         
 	         
 	      }catch(IOException i){}
@@ -76,30 +92,33 @@ public class Recorder implements java.io.Serializable {
 		 
 		try
 	      {
-	         FileInputStream fileIn = new FileInputStream("./" + "Recording" + planNumber + ".JSON");
+	         FileInputStream fileIn = new FileInputStream("./" + "Recording" + planNumber + ".JSON");//reads in file with #
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
-	         reader = (Recorder) in.readObject();
+	         IO.IOData0.clear();//clears IO object data
+	         IO.IOData1.clear();
+	         IO.IOData2.clear();
+	         reader = (Recorder) in.readObject();//sets reader object to read in object
 	         in.close();
 	         fileIn.close();
-	         isRead=true;
+	         isRead=true;//lets program know it's been read in
 	      }catch(IOException i){}
 		   catch(ClassNotFoundException c){}
-		return reader;
+		return reader;//returns read object
 	}
-	public double[] playBackNext(){
-		if(!isRead){
-			readData();
+	public double[] playBackNext(){//plays back recording
+		if(!isRead){//reads data to IO if it isn't read
+			IO = readData();//sets IO to the read object
 			}
-		double[]playArray = new double[3];
-		if(RobotMap.playIncrement > Data0.size()){
+		double[]playArray = new double[3];//creates array to return to drive method
+		if(RobotMap.playIncrement > IO.Data0.size()){//if it keeps reading larger than the size for any reason, this stops the robot
 			playArray[0]=0;
 			playArray[1]=0;
 			playArray[2]=0;
 		}else{
-			playArray[0]=readData().Data0.get(RobotMap.playIncrement);
-			playArray[1]=readData().Data1.get(RobotMap.playIncrement);
-			playArray[2]=readData().Data2.get(RobotMap.playIncrement);
-			++RobotMap.playIncrement;
+			playArray[0]=readData().IO.Data0.get(RobotMap.playIncrement);//setsarray elements to saved ones
+			playArray[1]=readData().IO.Data1.get(RobotMap.playIncrement);
+			playArray[2]=readData().IO.Data2.get(RobotMap.playIncrement);
+			++RobotMap.playIncrement;//increments element of arraylist
 		}
 		
 		
@@ -132,6 +151,7 @@ public class Recorder implements java.io.Serializable {
 		         fileIn.close();		         
 		      }catch(IOException i){}
 			   catch(ClassNotFoundException c){}
+			
 			return reader;
 			
 		}
