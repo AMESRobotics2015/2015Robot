@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3243.robot;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class InputManager{
 	
@@ -9,12 +10,14 @@ public class InputManager{
 	protected static Joystick ps2controller;//our controller
 	protected static Joystick gamecontroller;//game piece
 	protected static int rampUpNum = 3;//used for ramp up
+	protected static JoystickButton record;
 	
 	//initializes the controllers
 	public InputManager() {
 		
 		ps2controller = new Joystick(0);
 		gamecontroller = new Joystick (1);
+		record = new JoystickButton(ps2controller, 4);
 		//rampUpNum = int
 		
 	}
@@ -76,5 +79,14 @@ public class InputManager{
 		
 		return (axis);
 	}	
+	
+	public void record(){
+		
+		if(record.get() == true){
+			RobotMap.isRecording = true;
+		}
+		
+		
+	}
 
 }
