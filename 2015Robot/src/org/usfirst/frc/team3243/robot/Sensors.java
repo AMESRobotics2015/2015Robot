@@ -7,7 +7,7 @@ public class Sensors {
 	
 	public Sensors(){
 		
-		G = new Gyro(3);
+		G = new Gyro(0);
 		
 	}
 	
