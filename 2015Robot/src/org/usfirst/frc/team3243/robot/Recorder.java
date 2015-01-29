@@ -12,13 +12,9 @@ import java.util.Timer;
 
 
 public class Recorder implements java.io.Serializable {
-	ArrayList<Double> IOData0 = new ArrayList<Double>();//creates 3 object-specific arraylists
-	ArrayList<Double> IOData1 = new ArrayList<Double>();
-	ArrayList<Double> IOData2 = new ArrayList<Double>();
-	static ArrayList<Double> Data0 = new ArrayList<Double>();//creates 3 static arraylists
-	static ArrayList<Double> Data1 = new ArrayList<Double>();
-	static ArrayList<Double> Data2 = new ArrayList<Double>();
-	Recorder IO = new Recorder();//create class-wide object for I/O
+	ArrayList<Double> Data0 = new ArrayList<Double>();//creates 3 object-specific arraylists
+	ArrayList<Double> Data1 = new ArrayList<Double>();
+	ArrayList<Double> Data2 = new ArrayList<Double>();	
 	static Timer stopRecord= new Timer(); //creates timer object to stop recording after 15 seconds
 	static int counter = getCounter();//sets value of recording counter to the last recording value
 	static int planNumber = 0;//number of plan to execute on playback
@@ -49,15 +45,15 @@ public class Recorder implements java.io.Serializable {
 			RobotMap.timerOn = true;//sets timer to begin
 		}
 		if(RobotMap.clearData){//clears data if not already cleared
-			Data0.clear();
-			Data1.clear();
-			Data2.clear();
+			this.Data0.clear();
+			this.Data1.clear();
+			this.Data2.clear();
 			RobotMap.clearData = false;//stops clearing of data
 		}else if (RobotMap.isRecording && startRecord){//starts recording if button is pressed and joystick has been changed
 			
-		Data0.add(array[0]);//records data to static arraylists
-		Data1.add(array[1]);
-		Data2.add(array[2]);
+		this.Data0.add(array[0]);//records data to static arraylists
+		this.Data1.add(array[1]);
+		this.Data2.add(array[2]);
 		if (RobotMap.timerOn){//starts timer if told to do so
 			stopRecord.schedule(new recordingTimer(), 15000);//schedules stop in 15 seconds
 			RobotMap.timerOn = false;//stops timer
@@ -66,19 +62,14 @@ public class Recorder implements java.io.Serializable {
 		
 	}
 	
-	public void writeData(){//writees data to file
+	public void writeData(){//writes data to file
 		try
 	      {
-			
-				IO.IOData0 = Data0;//sets object arraylists tostatic ones
-				IO.IOData1 = Data1;
-				IO.IOData2 = Data2;
-			
+					
 			++counter;//increments # of recording
-	         FileOutputStream fileOut =
-	         new FileOutputStream("./" + "Recording" + counter + ".JSON");//outputs recording and # to a json
+	         FileOutputStream fileOut = new FileOutputStream("./" + "Recording" + counter + ".JSON");//outputs recording and # to a json
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(IO);//writes IO recorder object to file
+	         out.writeObject(this);//writes IO recorder object to file
 	         out.close();
 	         fileOut.close();	
 	         RobotMap.clearData = true;//sets data to clear on next run       
@@ -94,9 +85,9 @@ public class Recorder implements java.io.Serializable {
 	      {
 	         FileInputStream fileIn = new FileInputStream("./" + "Recording" + planNumber + ".JSON");//reads in file with #
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
-	         IO.IOData0.clear();//clears IO object data
-	         IO.IOData1.clear();
-	         IO.IOData2.clear();
+	         this.Data0.clear();//clears IO object data
+	         this.Data1.clear();
+	         this.Data2.clear();
 	         reader = (Recorder) in.readObject();//sets reader object to read in object
 	         in.close();
 	         fileIn.close();
@@ -106,18 +97,18 @@ public class Recorder implements java.io.Serializable {
 		return reader;//returns read object
 	}
 	public double[] playBackNext(){//plays back recording
-		if(!isRead){//reads data to IO if it isn't read
-			IO = readData();//sets IO to the read object
-			}
+		
+		
 		double[]playArray = new double[3];//creates array to return to drive method
-		if(RobotMap.playIncrement > IO.Data0.size()){//if it keeps reading larger than the size for any reason, this stops the robot
+		if(RobotMap.playIncrement > readData().Data0.size()){//if it keeps reading larger than the size for any reason, this stops the robot
 			playArray[0]=0;
 			playArray[1]=0;
 			playArray[2]=0;
-		}else{
-			playArray[0]=readData().IO.Data0.get(RobotMap.playIncrement);//setsarray elements to saved ones
-			playArray[1]=readData().IO.Data1.get(RobotMap.playIncrement);
-			playArray[2]=readData().IO.Data2.get(RobotMap.playIncrement);
+		}else
+		{
+			playArray[0]=readData().readData().Data0.get(RobotMap.playIncrement);//sets array elements to saved ones
+			playArray[1]=readData().readData().Data1.get(RobotMap.playIncrement);
+			playArray[2]=readData().readData().Data2.get(RobotMap.playIncrement);
 			++RobotMap.playIncrement;//increments element of arraylist
 		}
 		
