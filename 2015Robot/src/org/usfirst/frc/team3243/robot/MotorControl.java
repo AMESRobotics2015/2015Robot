@@ -47,11 +47,11 @@ public class MotorControl {
 		
 		drv[0] = (driv[0] * .75) - (driv[1] * .75) + (driv[2]);
 		System.out.println("A: " + drv[0]);
-		drv[1] = ((driv[0] * .75) + driv[1] * .75 + (driv[2])) * -.96;
+		drv[1] = ((driv[0] * .75) + driv[1] * .75 + (driv[2])) * .96;
 		System.out.println("B: " + drv[1]);
 		drv[2] = -(driv[0] * .75) + (driv[1] * .75) + (driv[2]);
 		System.out.println("C: " + drv[2]);
-		drv[3] = (-(driv[0] * .75) - (driv[1] * .75) + (driv[2])) * -.96;
+		drv[3] = (-(driv[0] * .75) - (driv[1] * .75) + (driv[2])) * .96;
 		System.out.println("D: " + drv[3]);
 		return drv;
 	}
