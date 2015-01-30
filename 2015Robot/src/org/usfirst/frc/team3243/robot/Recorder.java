@@ -28,6 +28,7 @@ public class Recorder implements java.io.Serializable {
 		@Override
 		public void run() {
 			writeData();//writes data to file
+			writeElevData();//writes elevator data
 			RobotMap.isRecording = false;//stops recording
 			setCounter();//saves counter
 			startRecord = false;
@@ -148,7 +149,56 @@ public class Recorder implements java.io.Serializable {
 			
 			return reader;			
 		}
-		public static void getElevData(){
-			//this.ElevData		
+		public void getElevData(double[] array){
+			this.ElevData.add(array[0]);	
 		}
+		public void writeElevData(){//writes data to file
+			try
+		      {
+						
+		         FileOutputStream fileOut = new FileOutputStream("./" + "RecordingE" + counter + ".JSON");//outputs recording and # to a json
+		         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		         out.writeObject(this);//writes recorder object to file
+		         out.close();
+		         fileOut.close();      
+		         
+		         
+		      }catch(IOException i){}
+			
+		}
+		public Recorder readElevData(){
+			 Recorder reader= new Recorder();
+			 
+			try
+		      {
+		         FileInputStream fileIn = new FileInputStream("./" + "RecordingE" + planNumber + ".JSON");//reads in file with #
+		         ObjectInputStream in = new ObjectInputStream(fileIn);
+		         this.Data0.clear();//clears recorder object data
+		         this.Data1.clear();
+		         this.Data2.clear();
+		         reader = (Recorder) in.readObject();//sets reader object to read in object
+		         in.close();
+		         fileIn.close();
+		         
+		      }catch(IOException i){}
+			   catch(ClassNotFoundException c){}
+			return reader;//returns read object
+		}
+		public double[] playBackElev(){//plays back recording
+			
+			
+			double[]playArray = new double[2];//creates array to return to drive method
+			if(RobotMap.playIncrement > readElevData().Data0.size()){//if it keeps reading larger than the size for any reason, this stops the robot
+				playArray[0]=0;
+				playArray[1]=0;
+			}else
+			{
+				playArray[0]=readElevData().Data0.get(RobotMap.playIncrement);//sets array elements to saved ones
+				playArray[1]=readElevData().Data1.get(RobotMap.playIncrement);
+			}
+			
+			
+			
+			return playArray;
+			}
 }
