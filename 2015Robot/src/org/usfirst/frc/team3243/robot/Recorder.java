@@ -70,7 +70,7 @@ public class Recorder implements java.io.Serializable {
 			++counter;//increments # of recording
 	         FileOutputStream fileOut = new FileOutputStream("./" + "Recording" + counter + ".JSON");//outputs recording and # to a json
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(this);//writes IO recorder object to file
+	         out.writeObject(this);//writes recorder object to file
 	         out.close();
 	         fileOut.close();	
 	         RobotMap.clearData = true;//sets data to clear on next run       
@@ -86,7 +86,7 @@ public class Recorder implements java.io.Serializable {
 	      {
 	         FileInputStream fileIn = new FileInputStream("./" + "Recording" + planNumber + ".JSON");//reads in file with #
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
-	         this.Data0.clear();//clears IO object data
+	         this.Data0.clear();//clears recorder object data
 	         this.Data1.clear();
 	         this.Data2.clear();
 	         reader = (Recorder) in.readObject();//sets reader object to read in object
@@ -107,9 +107,9 @@ public class Recorder implements java.io.Serializable {
 			playArray[2]=0;
 		}else
 		{
-			playArray[0]=readData().readData().Data0.get(RobotMap.playIncrement);//sets array elements to saved ones
-			playArray[1]=readData().readData().Data1.get(RobotMap.playIncrement);
-			playArray[2]=readData().readData().Data2.get(RobotMap.playIncrement);
+			playArray[0]=readData().Data0.get(RobotMap.playIncrement);//sets array elements to saved ones
+			playArray[1]=readData().Data1.get(RobotMap.playIncrement);
+			playArray[2]=readData().Data2.get(RobotMap.playIncrement);
 			++RobotMap.playIncrement;//increments element of arraylist
 		}
 		
@@ -145,7 +145,6 @@ public class Recorder implements java.io.Serializable {
 		      }catch(IOException i){}
 			   catch(ClassNotFoundException c){}
 			
-			return reader;
-			
+			return reader;			
 		}
 }
