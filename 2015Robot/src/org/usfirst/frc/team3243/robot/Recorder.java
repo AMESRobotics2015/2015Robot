@@ -15,6 +15,7 @@ public class Recorder implements java.io.Serializable {
 	ArrayList<Double> Data0 = new ArrayList<Double>();//creates 3 object-specific arraylists
 	ArrayList<Double> Data1 = new ArrayList<Double>();
 	ArrayList<Double> Data2 = new ArrayList<Double>();	
+	ArrayList<Double> ElevData = new ArrayList<Double>();//gets joystick input for elevator
 	static Timer stopRecord= new Timer(); //creates timer object to stop recording after 15 seconds
 	int outputCounter = 0;
 	static int counter = getCounter();//sets value of recording counter to the last recording value
@@ -40,7 +41,7 @@ public class Recorder implements java.io.Serializable {
 	
 	
 	
-	public void getData(double[] array){//gets data from joystick array
+	public void getDriveData(double[] array){//gets data from joystick array
 		if (array[0]!=0 || array[1]!=0 || array[2]!=0 ){//checks to see if joystick value != 0 
 			startRecord = true;//sets recording to begin
 			RobotMap.timerOn = true;//sets timer to begin
@@ -48,7 +49,7 @@ public class Recorder implements java.io.Serializable {
 		if(RobotMap.clearData){//clears data if not already cleared
 			this.Data0.clear();
 			this.Data1.clear();
-			this.Data2.clear();
+			this.Data2.clear();			
 			RobotMap.clearData = false;//stops clearing of data
 		}else if (RobotMap.isRecording && startRecord){//starts recording if button is pressed and joystick has been changed
 			
@@ -146,5 +147,8 @@ public class Recorder implements java.io.Serializable {
 			   catch(ClassNotFoundException c){}
 			
 			return reader;			
+		}
+		public static void getElevData(){
+			//this.ElevData		
 		}
 }

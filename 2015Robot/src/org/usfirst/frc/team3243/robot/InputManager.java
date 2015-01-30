@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class InputManager{
 	
 	static double[] axis = new double [3];//holds the input value from our left/right controllers
+	static double[] gameaxis = new double [2];
 	
 	protected static Joystick ps2controller;//our controller
 	protected static Joystick gamecontroller;//game piece
@@ -38,7 +39,7 @@ public class InputManager{
 		
 		axis[0] = ps2controller.getRawAxis(3);//y axis 
 		axis[1] = -ps2controller.getRawAxis(2);//x axis
-		axis[2] = ps2controller.getRawAxis(0);//pivioting
+		axis[2] = ps2controller.getRawAxis(0);//pivoting
 		axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
 		return axis;
 		
@@ -87,6 +88,12 @@ public class InputManager{
 		}
 		
 		
+	}
+	public static double[] getGameControllerAxis(){
+		gameaxis[0] = gamecontroller.getRawAxis(3);//y axis 
+		gameaxis[1] = gamecontroller.getRawAxis(2);//x axis
+		gameaxis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
+		return gameaxis;
 	}
 
 }
