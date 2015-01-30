@@ -16,6 +16,7 @@ public class Recorder implements java.io.Serializable {
 	ArrayList<Double> Data1 = new ArrayList<Double>();
 	ArrayList<Double> Data2 = new ArrayList<Double>();	
 	static Timer stopRecord= new Timer(); //creates timer object to stop recording after 15 seconds
+	int outputCounter = 0;
 	static int counter = getCounter();//sets value of recording counter to the last recording value
 	static int planNumber = 0;//number of plan to execute on playback
 	static boolean isRead= false;//checks to see if the file was correctly read
@@ -120,9 +121,10 @@ public class Recorder implements java.io.Serializable {
 			
 			FileOutputStream counterOut;
 			try {
+				outputCounter = counter;
 				counterOut = new FileOutputStream("./Counter.JSON");
 		         ObjectOutputStream counterFile = new ObjectOutputStream(counterOut);
-    	         counterFile.writeObject(counter);
+    	         counterFile.writeObject(outputCounter);
     	         counterFile.close();
     	         counterOut.close();
 			} catch (FileNotFoundException e) {		
