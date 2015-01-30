@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3243.robot;
 
 import edu.wpi.first.wpilibj.*;
-
+import java.lang.System;
 public class MotorControl {
 	
 	protected static Victor A;

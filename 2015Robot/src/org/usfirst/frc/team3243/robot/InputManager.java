@@ -37,7 +37,7 @@ public class InputManager{
 	public static double[] getAxisValue(){
 		
 		axis[0] = ps2controller.getRawAxis(3);//y axis 
-		axis[1] = ps2controller.getRawAxis(2);//x axis
+		axis[1] = -ps2controller.getRawAxis(2);//x axis
 		axis[2] = ps2controller.getRawAxis(0);//pivioting
 		axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
 		return axis;

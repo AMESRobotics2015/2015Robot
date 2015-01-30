@@ -22,13 +22,13 @@ public class Robot extends IterativeRobot {
 	private static MotorControl MC;
 	private static Sensors S;
 	//protected static Watchdog WD;
-	private static Recorder R;
+	//private static Recorder R;
 	
     public void robotInit() {
     	IM = new InputManager();
     	MC = new MotorControl();
     	S = new Sensors();
-    	R = new Recorder();
+    	//R = new Recorder();
     	
     	
     	
@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	MC.driveomni(R.playBackNext());
+    //	MC.driveomni(R.playBackNext());
     }
 
     /**
@@ -47,7 +47,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	//while(true){
     		MC.driveomni(IM.getFinalAxis());
-    		R.getData(IM.getFinalAxis());
+    		//R.getData(IM.getFinalAxis());
     		double fin = S.gyread();
     		System.out.println(fin);
     		if(IM.getGyroResetButton())
