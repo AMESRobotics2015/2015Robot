@@ -27,8 +27,8 @@ public class InputManager{
 	 * It retrieves the getAxisValue class's values, deadzones, and then it calls the ramp method, which regresses it to be a cubu=ic function rather than a line
 	 * @return
 	 */
-	public static double [] getFinalAxis(){
-		return (ramp(getAxisValue()));
+	public static double [] getFinalAxis( double gyro){
+		return (ramp(adjustGetAxisValue(gyro)));
 		//three things happen in this class.
 		//1)you get axis values
 		//2)then you deadzone the values
@@ -39,6 +39,25 @@ public class InputManager{
 		
 		axis[0] = ps2controller.getRawAxis(3);//y axis 
 		axis[1] = -ps2controller.getRawAxis(2);//x axis
+		axis[2] = ps2controller.getRawAxis(0);//pivoting
+		//axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
+		return axis;
+		
+		
+	}
+	public static double[] adjustGetAxisValue( double gyroAngle){
+		double controllerAngle =0;
+		axis[0] = ps2controller.getRawAxis(3);//y axis 
+		axis[1] = ps2controller.getRawAxis(2);//x axis
+		if (axis[1]<0){
+			controllerAngle = Math.PI + Math.atan(axis[0]/axis[1]);//get the angle that the joystick is pointing facing, in case the angle is in the second or third quadrant
+		}
+		else{
+			controllerAngle = Math.atan(axis[0]/axis[1]);//get angle if it's in the first or fourth quadrant
+		}
+		System.out.println("joystick angle" + controllerAngle);
+		axis[1] = Math.abs(axis[1])*Math.cos(gyroAngle+controllerAngle); 
+		axis[0] = Math.abs(axis[0])*Math.sin(gyroAngle+controllerAngle); 
 		axis[2] = ps2controller.getRawAxis(0);//pivoting
 		axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
 		return axis;
