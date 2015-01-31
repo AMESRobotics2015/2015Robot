@@ -48,7 +48,7 @@ public class InputManager{
 	
 	public static boolean getGyroResetButton()
 	{
-		 return gamecontroller.getRawButton(2);
+		 return ps2controller.getRawButton(2);
 		
 	}
 	
