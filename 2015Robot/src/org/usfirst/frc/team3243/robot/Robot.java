@@ -48,7 +48,6 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	//while(true){
     		MC.driveomni(IM.getFinalAxis(S.gyread()));
-    		R.getElevData(IM.getGameControllerAxis());
     		R.getDriveData(IM.getFinalAxis(S.gyread()));
     		double fin = S.gyread();
     		System.out.println(fin);
