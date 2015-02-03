@@ -48,7 +48,7 @@ public class Recorder implements java.io.Serializable {
 		this.Data2.add(array[2]);
 		this.ElevData.add(array[3]);
 		if (RobotMap.timerOn){//starts timer if told to do so
-			stopRecord.schedule(new recordingTimer(), 15000);//schedules stop in 15 seconds         n  			 
+			stopRecord.schedule(new recordingTimer(), 15000);//schedules stop in 15 seconds           			 
 			}
 		}
 		

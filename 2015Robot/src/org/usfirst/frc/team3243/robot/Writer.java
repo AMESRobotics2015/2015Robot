@@ -9,7 +9,7 @@ public class Writer implements java.io.Serializable{
 	public void writeData(Recorder r){//writes data to file
 		try
 	      {
-			FileOutputStream FileOut = new FileOutputStream("./" + "Recording " + Recorder.counter + ".JSON");//outputs recording and # to a json
+			FileOutputStream FileOut = new FileOutputStream("Recording " + Recorder.counter + ".JSON");//outputs recording and # to a json
 	         ObjectOutputStream fileout = new ObjectOutputStream(FileOut);
 	         fileout.writeObject(r);//writes recorder object to file
 	         fileout.close();
@@ -51,7 +51,7 @@ public class Writer implements java.io.Serializable{
 		FileOutputStream counterOut;
 		try {
 			outputCounter = Recorder.counter;
-			counterOut = new FileOutputStream("./Counter.JSON");
+			counterOut = new FileOutputStream("Counter.JSON");
 	         ObjectOutputStream counterFile = new ObjectOutputStream(counterOut);
 	         counterFile.writeObject(outputCounter);
 	         counterFile.close();
