@@ -22,13 +22,16 @@ public class Robot extends IterativeRobot {
 	private static Sensors S;
 	//protected static Watchdog WD;
 	private Recorder R;
+	private Writer WR;
+	private Reader RE;
 	
     public void robotInit() {
     	IM = new InputManager();
     	MC = new MotorControl();
     	S = new Sensors();
     	R = new Recorder();
-    	
+    	WR = new Writer();
+    	RE = new Reader();
     	
     	
     }
@@ -37,8 +40,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(!R.isRead){
-    	R.readData();
+    	if(!Recorder.isRead){
+    	RE.readData(R);
     	}
     	MC.driveomni(R.playBackNext());
     	//whateverfunctiondriveselevator(R.playBackElev());
@@ -52,8 +55,8 @@ public class Robot extends IterativeRobot {
     		//MC.driveomni(IM.getFinalAxis(S.gyread()));
     		MC.driveomni(IM.getFinalAxis());
     		R.getDriveData(IM.getFinalAxis());//I got rid of gyro reading. we need to reapproach
-    		if(Recorder.writeToFile){
-    			R.writeData();
+    		if(RobotMap.writeToFile){
+    			WR.writeData(R);
     		}
     		double fin = S.gyread();
     		System.out.println(fin);

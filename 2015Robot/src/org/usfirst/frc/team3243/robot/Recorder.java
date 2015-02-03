@@ -2,12 +2,6 @@ package org.usfirst.frc.team3243.robot;
 
 import java.util.ArrayList;
 import java.util.TimerTask;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Timer;
 
 
@@ -17,8 +11,7 @@ public class Recorder implements java.io.Serializable {
 	ArrayList<Double> Data2 = new ArrayList<Double>();	
 	ArrayList<Double> ElevData = new ArrayList<Double>();//gets joystick input for elevator
 	static Timer stopRecord= new Timer(); //creates timer object to stop recording after 15 seconds
-	int outputCounter = 0;
-	static int counter = getCounter();//sets value of recording counter to the last recording value
+	static int counter = Reader.getCounter();//sets value of recording counter to the last recording value
 	static int planNumber = 1;//number of plan to execute on playback
 	static boolean isRead= false;//checks to see if the file was correctly read
 	static boolean startRecord = false;
@@ -30,18 +23,12 @@ public class Recorder implements java.io.Serializable {
 		public void run() {
 			
 			RobotMap.isRecording = false;//stops recording
-			setCounter();//saves counter
 			startRecord = false;
 			RobotMap.timerOn = false;//stops timer
-			writeToFile = true;
+			RobotMap.writeToFile = true;
 		}
 		
-	}
-	
-	
-	
-	
-	
+	}	
 	
 	public void getDriveData(double[] array){//gets data from joystick array
 		//if (array[0]!=0 || array[1]!=0 || array[2]!=0 || array[3]!=0){//checks to see if joystick value != 0 
@@ -67,51 +54,9 @@ public class Recorder implements java.io.Serializable {
 		
 	}
 	
-	public void writeData(){//writes data to file
-		try
-	      {
-					
-			++counter;//increments # of recording
-	         FileOutputStream fileOut = new FileOutputStream("./" + "Recording" + counter + ".JSON");//outputs recording and # to a json
-	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(this);//writes recorder object to file
-	         out.close();
-	         fileOut.close();	
-	         RobotMap.clearData = true;//sets data to clear on next run       
-	         
-	         
-	      }catch(IOException i){}
-		
-	}
-	public void readData(){
-		 Recorder reader= new Recorder();
-		 
-		try
-	      {
-	         FileInputStream fileIn = new FileInputStream("./" + "Recording" + planNumber + ".JSON");//reads in file with #
-	         ObjectInputStream in = new ObjectInputStream(fileIn);
-	         this.Data0.clear();//clears recorder object data
-	         this.Data1.clear();
-	         this.Data2.clear();
-	         this.ElevData.clear();
-	         reader = (Recorder) in.readObject();//sets reader object to read in object
-	         in.close();
-	         fileIn.close();
-	         isRead=true;//lets program know it's been read in
-	      }catch(IOException i){}
-		   catch(ClassNotFoundException c){}
-		this.Data0 = reader.Data0;
-		this.Data1 = reader.Data1;
-		this.Data2 = reader.Data2;
-		this.ElevData = reader.ElevData;
-		isRead = true;
-		
-	}
-	public double[] playBackNext(){//plays back recording
-		if(!isRead){
-			this.readData();
-		}
-		
+	
+	
+	public double[] playBackNext(){//plays back recording		
 		double[]playArray = new double[4];//creates array to return to drive method
 		if(RobotMap.playIncrement > this.Data0.size()){//if it keeps reading larger than the size for any reason, this stops the robot
 			playArray[0]=0;
@@ -131,34 +76,6 @@ public class Recorder implements java.io.Serializable {
 		
 		return playArray;
 		}
-		public void setCounter(){
-			
-			FileOutputStream counterOut;
-			try {
-				outputCounter = counter;
-				counterOut = new FileOutputStream("./Counter.JSON");
-		         ObjectOutputStream counterFile = new ObjectOutputStream(counterOut);
-    	         counterFile.writeObject(outputCounter);
-    	         counterFile.close();
-    	         counterOut.close();
-			} catch (FileNotFoundException e) {		
-				
-			}catch(IOException i){}
-	    
-		}
-		public static int getCounter(){
-			int reader=0;
-			 
-			try
-		      {
-		         FileInputStream fileIn = new FileInputStream("./Counter.JSON");
-		         ObjectInputStream in = new ObjectInputStream(fileIn);
-		         reader = (int) in.readObject();
-		         in.close();
-		         fileIn.close();		         
-		      }catch(IOException i){}
-			   catch(ClassNotFoundException c){}
-			
-			return reader;			
-		}
+		
+		
 }
