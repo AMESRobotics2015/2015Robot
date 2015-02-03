@@ -22,16 +22,18 @@ public class Recorder implements java.io.Serializable {
 	static int planNumber = 1;//number of plan to execute on playback
 	static boolean isRead= false;//checks to see if the file was correctly read
 	static boolean startRecord = false;
+	static boolean writeToFile =false;
 	
 	private class recordingTimer extends TimerTask{//creates task to run after15 seconds
 
 		@Override
 		public void run() {
-			writeData();//writes data to file
+			
 			RobotMap.isRecording = false;//stops recording
 			setCounter();//saves counter
 			startRecord = false;
 			RobotMap.timerOn = false;//stops timer
+			writeToFile = true;
 		}
 		
 	}

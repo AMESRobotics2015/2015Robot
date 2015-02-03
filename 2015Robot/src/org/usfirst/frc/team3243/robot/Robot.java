@@ -49,6 +49,9 @@ public class Robot extends IterativeRobot {
     		//MC.driveomni(IM.getFinalAxis(S.gyread()));
     		MC.driveomni(IM.getFinalAxis());
     		R.getDriveData(IM.getFinalAxis());//I got rid of gyro reading. we need to reapproach
+    		if(R.writeToFile){
+    			R.writeData();
+    		}
     		double fin = S.gyread();
     		System.out.println(fin);
     		if(IM.getGyroResetButton())
