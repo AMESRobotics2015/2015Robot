@@ -31,6 +31,7 @@ public class Recorder implements java.io.Serializable {
 			RobotMap.isRecording = false;//stops recording
 			setCounter();//saves counter
 			startRecord = false;
+			RobotMap.timerOn = false;//stops timer
 		}
 		
 	}
@@ -40,27 +41,25 @@ public class Recorder implements java.io.Serializable {
 	
 	
 	
-	
 	public void getDriveData(double[] array){//gets data from joystick array
-		if (array[0]!=0 || array[1]!=0 || array[2]!=0 ){//checks to see if joystick value != 0 
-			startRecord = true;//sets recording to begin
+		//if (array[0]!=0 || array[1]!=0 || array[2]!=0 || array[3]!=0){//checks to see if joystick value != 0 
+			//startRecord = true;//sets recording to begin
 			RobotMap.timerOn = true;//sets timer to begin
-		}
+		//}
 		if(RobotMap.clearData){//clears data if not already cleared
 			this.Data0.clear();
 			this.Data1.clear();
 			this.Data2.clear();
 			this.ElevData.clear();
 			RobotMap.clearData = false;//stops clearing of data
-		}else if (RobotMap.isRecording && startRecord){//starts recording if button is pressed and joystick has been changed
+		}else if (RobotMap.isRecording /*&& startRecord */){//starts recording if button is pressed and joystick has been changed
 			
 		this.Data0.add(array[0]);//records data to static arraylists
 		this.Data1.add(array[1]);
 		this.Data2.add(array[2]);
 		this.ElevData.add(array[3]);
 		if (RobotMap.timerOn){//starts timer if told to do so
-			stopRecord.schedule(new recordingTimer(), 15000);//schedules stop in 15 seconds
-			RobotMap.timerOn = false;//stops timer
+			stopRecord.schedule(new recordingTimer(), 15000);//schedules stop in 15 seconds         n  			 
 			}
 		}
 		

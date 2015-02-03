@@ -27,8 +27,9 @@ public class InputManager{
 	 * It retrieves the getAxisValue class's values, deadzones, and then it calls the ramp method, which regresses it to be a cubu=ic function rather than a line
 	 * @return
 	 */
-	public static double [] getFinalAxis( double gyro){
-		return (ramp(adjustGetAxisValue(gyro)));
+	public static double [] getFinalAxis(){
+		//return (ramp(adjustGetAxisValue(gyro)));
+		return (ramp(getAxisValue()));
 		//three things happen in this class.
 		//1)you get axis values
 		//2)then you deadzone the values

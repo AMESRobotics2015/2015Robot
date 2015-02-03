@@ -17,7 +17,6 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-	
 	private static InputManager IM;
 	private static MotorControl MC;
 	private static Sensors S;
@@ -47,8 +46,9 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	//while(true){
-    		MC.driveomni(IM.getFinalAxis(S.gyread()));
-    		R.getDriveData(IM.getFinalAxis(S.gyread()));
+    		//MC.driveomni(IM.getFinalAxis(S.gyread()));
+    		MC.driveomni(IM.getFinalAxis());
+    		R.getDriveData(IM.getFinalAxis());//I got rid of gyro reading. we need to reapproach
     		double fin = S.gyread();
     		System.out.println(fin);
     		if(IM.getGyroResetButton())
