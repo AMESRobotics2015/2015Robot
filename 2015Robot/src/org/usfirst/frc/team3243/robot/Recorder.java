@@ -83,7 +83,7 @@ public class Recorder implements java.io.Serializable {
 	      }catch(IOException i){}
 		
 	}
-	public Recorder readData(){
+	public void readData(){
 		 Recorder reader= new Recorder();
 		 
 		try
@@ -93,29 +93,37 @@ public class Recorder implements java.io.Serializable {
 	         this.Data0.clear();//clears recorder object data
 	         this.Data1.clear();
 	         this.Data2.clear();
+	         this.ElevData.clear();
 	         reader = (Recorder) in.readObject();//sets reader object to read in object
 	         in.close();
 	         fileIn.close();
 	         isRead=true;//lets program know it's been read in
 	      }catch(IOException i){}
 		   catch(ClassNotFoundException c){}
-		return reader;//returns read object
+		this.Data0 = reader.Data0;
+		this.Data1 = reader.Data1;
+		this.Data2 = reader.Data2;
+		this.ElevData = reader.ElevData;
+		isRead = true;
+		
 	}
 	public double[] playBackNext(){//plays back recording
-		
+		if(!isRead){
+			this.readData();
+		}
 		
 		double[]playArray = new double[4];//creates array to return to drive method
-		if(RobotMap.playIncrement > readData().Data0.size()){//if it keeps reading larger than the size for any reason, this stops the robot
+		if(RobotMap.playIncrement > this.Data0.size()){//if it keeps reading larger than the size for any reason, this stops the robot
 			playArray[0]=0;
 			playArray[1]=0;
 			playArray[2]=0;
 			playArray[3]=0;
 		}else
 		{
-			playArray[0]=readData().Data0.get(RobotMap.playIncrement);//sets array elements to saved ones
-			playArray[1]=readData().Data1.get(RobotMap.playIncrement);
-			playArray[2]=readData().Data2.get(RobotMap.playIncrement);
-			playArray[3]=readData().ElevData.get(RobotMap.playIncrement);
+			playArray[0]=this.Data0.get(RobotMap.playIncrement);//sets array elements to saved ones
+			playArray[1]=this.Data1.get(RobotMap.playIncrement);
+			playArray[2]=this.Data2.get(RobotMap.playIncrement);
+			playArray[3]=this.ElevData.get(RobotMap.playIncrement);
 			++RobotMap.playIncrement;//increments element of arraylist
 		}
 		
