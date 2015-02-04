@@ -27,9 +27,9 @@ public class InputManager{
 	 * It retrieves the getAxisValue class's values, deadzones, and then it calls the ramp method, which regresses it to be a cubu=ic function rather than a line
 	 * @return
 	 */
-	public static double [] getFinalAxis(){
-		//return (ramp(adjustGetAxisValue(gyro)));
-		return (ramp(getAxisValue()));
+	public static double [] getFinalAxis(double gyro){
+		return (ramp(adjustGetAxisValue(gyro)));
+		//return (ramp(getAxisValue()));
 		//three things happen in this class.
 		//1)you get axis values
 		//2)then you deadzone the values
@@ -47,6 +47,7 @@ public class InputManager{
 		
 	}
 	public static double[] adjustGetAxisValue( double gyroAngle){
+		double mag; // this is the magnitude of our vector.
 		double controllerAngle =0;
 		axis[0] = ps2controller.getRawAxis(3);//y axis 
 		axis[1] = ps2controller.getRawAxis(2);//x axis
@@ -56,9 +57,12 @@ public class InputManager{
 		else{
 			controllerAngle = Math.atan(axis[0]/axis[1]);//get angle if it's in the first or fourth quadrant
 		}
+		
+		mag = Math.sqrt(Math.pow(axis[0], 2)*Math.pow(axis[1], 2));
+		
 		System.out.println("joystick angle" + controllerAngle);
-		axis[1] = Math.abs(axis[1])*Math.cos(gyroAngle+controllerAngle); 
-		axis[0] = Math.abs(axis[0])*Math.sin(gyroAngle+controllerAngle); 
+		axis[1] = mag*Math.cos(gyroAngle+controllerAngle); // using the equation kole gave where our final inputs include MAGNITUDE
+		axis[0] = mag*Math.sin(gyroAngle+controllerAngle); 
 		axis[2] = ps2controller.getRawAxis(0);//pivoting
 		axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
 		return axis;

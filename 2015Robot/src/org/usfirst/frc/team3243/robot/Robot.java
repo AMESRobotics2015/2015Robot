@@ -52,9 +52,9 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	//while(true){
-    		//MC.driveomni(IM.getFinalAxis(S.gyread()));
-    		MC.driveomni(IM.getFinalAxis());
-    		R.getDriveData(IM.getFinalAxis());//I got rid of gyro reading. we need to reapproach
+    		MC.driveomni(IM.getFinalAxis(S.gyread()));
+    		//MC.driveomni(IM.getFinalAxis()); // this is in case our new drive code fails and we want to fall back on old stuff.
+    		R.getDriveData(IM.getFinalAxis(S.gyread()));
     		if(RobotMap.writeToFile){
     			WR.writeData(R);
     		}
