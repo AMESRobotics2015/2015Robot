@@ -57,18 +57,19 @@ public class Recorder implements java.io.Serializable {
 	
 	
 	public double[] playBackNext(){//plays back recording		
-		double[]playArray = new double[4];//creates array to return to drive method
+		//double[]playArray = new double[4];//creates array to return to drive method
+		double[]playArray = new double[3];
 		if(RobotMap.playIncrement > this.Data0.size()){//if it keeps reading larger than the size for any reason, this stops the robot
 			playArray[0]=0;
 			playArray[1]=0;
 			playArray[2]=0;
-			playArray[3]=0;
+			//playArray[3]=0;
 		}else
 		{
 			playArray[0]=this.Data0.get(RobotMap.playIncrement);//sets array elements to saved ones
 			playArray[1]=this.Data1.get(RobotMap.playIncrement);
 			playArray[2]=this.Data2.get(RobotMap.playIncrement);
-			playArray[3]=this.ElevData.get(RobotMap.playIncrement);
+			//playArray[3]=this.ElevData.get(RobotMap.playIncrement);
 			++RobotMap.playIncrement;//increments element of arraylist
 		}
 		

@@ -5,11 +5,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 public class Writer implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int outputCounter = 0;
 	public void writeData(Recorder r){//writes data to file
 		try
 	      {
-			FileOutputStream FileOut = new FileOutputStream("Recording " + Recorder.counter + ".JSON");//outputs recording and # to a json
+			FileOutputStream FileOut = new FileOutputStream("./Recording " + Recorder.counter + ".JSON");//outputs recording and # to a json
 	         ObjectOutputStream fileout = new ObjectOutputStream(FileOut);
 	         fileout.writeObject(r);//writes recorder object to file
 	         fileout.close();
@@ -43,7 +47,13 @@ public class Writer implements java.io.Serializable{
 	         Recorder.writeToFile = false;
 	         */
 	         
-	      }catch(IOException i){}
+	      } catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 	}
 	public void setCounter(){
@@ -51,7 +61,7 @@ public class Writer implements java.io.Serializable{
 		FileOutputStream counterOut;
 		try {
 			outputCounter = Recorder.counter;
-			counterOut = new FileOutputStream("Counter.JSON");
+			counterOut = new FileOutputStream("./Counter.JSON");
 	         ObjectOutputStream counterFile = new ObjectOutputStream(counterOut);
 	         counterFile.writeObject(outputCounter);
 	         counterFile.close();
