@@ -40,11 +40,13 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(!Recorder.isRead){
+    	/*if(!Recorder.isRead){
     	RE.readData(R);
     	}
     	MC.driveomni(R.playBackNext());
     	//whateverfunctiondriveselevator(R.playBackElev());
+    	 * 
+    	 */
     }
 
     /**
@@ -54,10 +56,12 @@ public class Robot extends IterativeRobot {
     	//while(true){
     		MC.driveomni(IM.getFinalAxis(S.gyread()));
     		//MC.driveomni(IM.getFinalAxis()); // this is in case our new drive code fails and we want to fall back on old stuff.
+    		
     		R.getDriveData(IM.getFinalAxis(S.gyread()));
     		if(RobotMap.writeToFile){
     			WR.writeData(R);
     		}
+    		
     		double fin = S.gyread();
     		System.out.println(fin);
     		if(IM.getGyroResetButton())

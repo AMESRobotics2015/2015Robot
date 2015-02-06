@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.*;
 public class Writer implements java.io.Serializable{
 	/**
 	 * 
@@ -11,14 +12,35 @@ public class Writer implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	int outputCounter = 0;
 	public void writeData(Recorder r){//writes data to file
-		try
-	      {
-			FileOutputStream FileOut = new FileOutputStream("./Recording " + Recorder.counter + ".JSON");//outputs recording and # to a json
+		//try
+	     // {
+			
+			FileOutputStream FileOut;
+			try {
+				 FileOut = new FileOutputStream("/home/lvuser/auto/Recording " + Recorder.counter + ".JSON");//outputs recording and # to a json
+		         ObjectOutputStream fileout = new ObjectOutputStream(FileOut);
+		         fileout.writeObject(r);//writes recorder object to file
+		         fileout.close();
+		         FileOut.close();
+						
+				++Recorder.counter;//increments # of recording
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
+	}
+			
+			/*FileOutputStream FileOut = new FileOutputStream("./Recording " + Recorder.counter + ".JSON");//outputs recording and # to a json
 	         ObjectOutputStream fileout = new ObjectOutputStream(FileOut);
 	         fileout.writeObject(r);//writes recorder object to file
 	         fileout.close();
 	         FileOut.close();
-				/*	
+					
 			++Recorder.counter;//increments # of recording
 	         FileOutputStream Data0Out = new FileOutputStream("./" + "Data0-" + Recorder.counter + ".JSON");//outputs recording and # to a json
 	         ObjectOutputStream Data0out = new ObjectOutputStream(Data0Out);
@@ -47,15 +69,7 @@ public class Writer implements java.io.Serializable{
 	         Recorder.writeToFile = false;
 	         */
 	         
-	      } catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-	}
+	       
 	public void setCounter(){
 		
 		FileOutputStream counterOut;
