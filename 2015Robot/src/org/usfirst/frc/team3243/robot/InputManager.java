@@ -15,14 +15,13 @@ public class InputManager{
 	protected static Joystick ps2controller;//our controller
 	protected static Joystick gamecontroller;//game piece
 	protected static int rampUpNum = 3;//used for ramp up
-	protected static JoystickButton record;
+	protected static boolean recordButton;
 	
 	//initializes the controllers
 	public InputManager() {
 		
 		ps2controller = new Joystick(0);
 		gamecontroller = new Joystick (1);
-		record = new JoystickButton(ps2controller, 4);
 		//rampUpNum = int
 		
 	}
@@ -64,7 +63,7 @@ public class InputManager{
 		
 		mag = Math.sqrt(Math.pow(axis[0], 2)*Math.pow(axis[1], 2));
 		
-		System.out.println("joystick angle" + controllerAngle);
+		//System.out.println("joystick angle" + controllerAngle);
 		axis[1] = mag*Math.cos(gyroAngle+controllerAngle); // using the equation kole gave where our final inputs include MAGNITUDE
 		axis[0] = mag*Math.sin(gyroAngle+controllerAngle); 
 		axis[2] = ps2controller.getRawAxis(0);//pivoting
@@ -111,9 +110,10 @@ public class InputManager{
 	
 	public void record(){
 		
-		if(record.get() == true){
+		if(ps2controller.getRawButton(4)){
 			RobotMap.isRecording = true;
 			System.out.println("Successful button press");
+			RobotMap.timerOn = true;
 		}
 		
 		

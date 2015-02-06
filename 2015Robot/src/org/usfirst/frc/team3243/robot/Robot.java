@@ -3,6 +3,7 @@ package org.usfirst.frc.team3243.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.DriverStation;
+
 import java.lang.System;
 //import edu.wpi.first.wpilibj
 /**
@@ -31,22 +32,20 @@ public class Robot extends IterativeRobot {
     	S = new Sensors();
     	R = new Recorder();
     	WR = new Writer();
-    	RE = new Reader();
-    	
-    	
+    	RE = new Reader(); 	    	
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	/*if(!Recorder.isRead){
+    	if(!Recorder.isRead){
     	RE.readData(R);
     	}
     	MC.driveomni(R.playBackNext());
     	//whateverfunctiondriveselevator(R.playBackElev());
-    	 * 
-    	 */
+    	 
+   
     }
 
     /**
@@ -56,14 +55,14 @@ public class Robot extends IterativeRobot {
     	//while(true){
     		MC.driveomni(IM.getFinalAxis(S.gyread()));
     		//MC.driveomni(IM.getFinalAxis()); // this is in case our new drive code fails and we want to fall back on old stuff.
-    		
+    		IM.record();
     		R.getDriveData(IM.getFinalAxis(S.gyread()));
     		if(RobotMap.writeToFile){
     			WR.writeData(R);
     		}
     		
     		double fin = S.gyread();
-    		System.out.println(fin);
+    		//System.out.println(fin);
     		if(IM.getGyroResetButton())
     		{
     			S.G.reset();
