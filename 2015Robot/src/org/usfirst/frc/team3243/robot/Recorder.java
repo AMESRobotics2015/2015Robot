@@ -26,7 +26,7 @@ public class Recorder implements java.io.Serializable {
 			RobotMap.isRecording = false;//stops recording
 			startRecord = false;			
 			RobotMap.writeToFile = true;
-			
+			System.out.println("timer ran");
 		}
 		
 	}	
@@ -51,6 +51,7 @@ public class Recorder implements java.io.Serializable {
 		if (RobotMap.timerOn){//starts timer if told to do so
 			stopRecord.schedule(new recordingTimer(), 15000);//schedules stop in 15 seconds     
 			RobotMap.timerOn = false;//stops timer
+			System.out.println("timer started");
 			}
 		}
 		
