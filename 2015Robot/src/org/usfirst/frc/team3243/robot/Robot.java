@@ -55,10 +55,11 @@ public class Robot extends IterativeRobot {
     	//while(true){
     		MC.driveomni(IM.getFinalAxis(S.gyread()));
     		//MC.driveomni(IM.getFinalAxis()); // this is in case our new drive code fails and we want to fall back on old stuff.
-    		IM.record();
+    		
     		R.getDriveData(IM.getFinalAxis(S.gyread()));
     		if(RobotMap.writeToFile){
     			WR.writeData(R);
+    			WR.setCounter();
     		}
     		
     		double fin = S.gyread();

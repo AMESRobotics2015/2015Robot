@@ -16,6 +16,7 @@ public class Recorder implements java.io.Serializable {
 	static boolean isRead= false;//checks to see if the file was correctly read
 	static boolean startRecord = false;
 	static boolean writeToFile =false;
+	InputManager IM = new InputManager();
 	
 	private class recordingTimer extends TimerTask{//creates task to run after15 seconds
 
@@ -34,6 +35,7 @@ public class Recorder implements java.io.Serializable {
 		//if (array[0]!=0 || array[1]!=0 || array[2]!=0 || array[3]!=0){//checks to see if joystick value != 0 
 			//startRecord = true;//sets recording to begin			
 		//}
+		IM.record();
 		if(RobotMap.clearData){//clears data if not already cleared
 			this.Data0.clear();
 			this.Data1.clear();
@@ -45,7 +47,7 @@ public class Recorder implements java.io.Serializable {
 		this.Data0.add(array[0]);//records data to static arraylists
 		this.Data1.add(array[1]);
 		this.Data2.add(array[2]);
-		//this.ElevData.add(objectCounter, array[3]);
+		//this.ElevData.add(array[3]);
 		if (RobotMap.timerOn){//starts timer if told to do so
 			stopRecord.schedule(new recordingTimer(), 15000);//schedules stop in 15 seconds     
 			RobotMap.timerOn = false;//stops timer

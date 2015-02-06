@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3243.robot;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -14,7 +15,7 @@ public class Reader {
 	         r.Data1.clear();
 	         r.Data2.clear();
 	         r.ElevData.clear();
-	         FileInputStream fileIn = new FileInputStream("/home/lvuser/auto/Recording" + Recorder.planNumber + ".JSON");//reads in file with #
+	         FileInputStream fileIn = new FileInputStream("/home/lvuser/auto/Recording " + Recorder.planNumber + ".JSON");//reads in file with #
 	         ObjectInputStream in = new ObjectInputStream(fileIn);	         
 	         reader = (Recorder) in.readObject();//sets reader object to read in object
 	         in.close();
