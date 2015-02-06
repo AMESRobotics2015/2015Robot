@@ -1,5 +1,9 @@
 package org.usfirst.frc.team3243.robot;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -109,6 +113,7 @@ public class InputManager{
 		
 		if(record.get() == true){
 			RobotMap.isRecording = true;
+			System.out.println("Successful button press");
 		}
 		
 		
