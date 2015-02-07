@@ -40,25 +40,20 @@ public class InputManager{
 	}
 	
 	public static double[] getAxisValue(){
-	/*	
+	if (ps2controller.getRawButton(8)){
 		axis[0] = ps2controller.getRawAxis(3);//y axis 
 		axis[1] = -ps2controller.getRawAxis(2);//x axis
 		axis[2] = ps2controller.getRawAxis(0);//pivoting
-		*/
-		
+	}
+	else{
 		axis[0] = ps2controller.getRawAxis(1);//y axis 
 		axis[1] = -ps2controller.getRawAxis(0);//x axis
 		axis[2] = ps2controller.getRawAxis(2);//pivoting
-		//axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
-		return axis;
-		
-		
 	}
-	public static double[] adjustGetAxisValue( double gyroAngle){
-		double mag; // this is the magnitude of our vector.
-		double controllerAngle =0;
-		axis[0] = ps2controller.getRawAxis(3);//y axis 
-		axis[1] = ps2controller.getRawAxis(2);//x axis
+		//axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
+		double mag = Math.sqrt(Math.pow(axis[0], 2)+Math.pow(axis[1], 2));
+		double controllerAngle = 0;
+		
 		if (axis[1]<0){
 			controllerAngle = Math.PI + Math.atan(axis[0]/axis[1]);//get the angle that the joystick is pointing facing, in case the angle is in the second or third quadrant
 		}
@@ -66,7 +61,25 @@ public class InputManager{
 			controllerAngle = Math.atan(axis[0]/axis[1]);//get angle if it's in the first or fourth quadrant
 		}
 		
-		mag = Math.sqrt(Math.pow(axis[0], 2)*Math.pow(axis[1], 2));
+		axis[1] = mag*Math.cos((Math.PI/4) + controllerAngle); // using the equation kole gave where our final inputs include MAGNITUDE
+		axis[0] = mag*Math.sin((Math.PI/4) + controllerAngle); 
+		return axis;
+		
+		
+	}
+	public static double[] adjustGetAxisValue( double gyroAngle){
+		double mag; // this is the magnitude of our vector.
+		double controllerAngle =0;
+		axis[0] = ps2controller.getRawAxis(1);//y axis 
+		axis[1] = ps2controller.getRawAxis(0);//x axis
+		if (axis[1]<0){
+			controllerAngle = Math.PI + Math.atan(axis[0]/axis[1]);//get the angle that the joystick is pointing facing, in case the angle is in the second or third quadrant
+		}
+		else{
+			controllerAngle = Math.atan(axis[0]/axis[1]);//get angle if it's in the first or fourth quadrant
+		}
+		
+		mag = Math.sqrt(Math.pow(axis[0], 2)+Math.pow(axis[1], 2));
 		
 		//System.out.println("joystick angle" + controllerAngle);
 		axis[1] = mag*Math.cos(gyroAngle+controllerAngle); // using the equation kole gave where our final inputs include MAGNITUDE
@@ -100,6 +113,7 @@ public class InputManager{
 				axis[i] = 0;//if the condition is satisfies, round it to zero
 			}
 		}
+		System.out.println(axis.length);
 		return axis;
 	}
 	/**

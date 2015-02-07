@@ -56,13 +56,13 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	//while(true){
     		//MC.driveomni(IM.getFinalAxis(S.gyread()));
-    		//MC.driveomni(IM.getAxisValue()); // this is in case our new drive code fails and we want to fall back on old stuff.
-    	if(IM.getwat()){
+    		MC.driveomni(IM.getAxisValue()); // this is in case our new drive code fails and we want to fall back on old stuff.
+    	/*if(IM.getwat()){
     		MC.mandriv(-.3);
     	}
     	else{
     		MC.mandriv(.3);
-    	}
+    	}*/
     		R.getDriveData(IM.getFinalAxis(S.gyread()));
     		if(RobotMap.writeToFile){
     			WR.writeData(R);
