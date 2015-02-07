@@ -27,14 +27,22 @@ public class MotorControl {
 			A.set(drv[0]);
 			B.set(drv[1]);
 			C.set(drv[2]);
-			D.set(drv[3]);
+			D.set(drv[3] * 0.5);
+		
+	}
+	public void mandriv(double in){
+		System.out.println(in);
+			A.set(in);
+			B.set(in);
+			C.set(in);
+			D.set(in);
 		
 	}
 	
 	public double[] finaldrv(double[] driv){
 		/*
 		drv[0] = (driv[0] * .5) - (driv[1] * .5) + (driv[2] * .6);
-		drv[1] = (driv[0] * .5) + driv[1] * .5 + (driv[2] * .6);
+		drv[1] = (driv[0] * .5) + driv[1] * .5 + (driv[2] * .6);s
 		drv[2] = -(driv[0] * .5) + (driv[1] * .5) + (driv[2] * .6);
 		drv[3] = -(driv[0] * .5) - (driv[1] * .5) + (driv[2] * .6);
 		*/
@@ -45,13 +53,13 @@ public class MotorControl {
 		drv[3] = (driv[2]);
 		*/
 		
-		drv[0] = (driv[0] * .75) - (driv[1] * .75) + (driv[2]);
+		drv[0] = (driv[0] * .75) - (driv[1] * .75) + (driv[2]) * .5;
 		//System.out.println("A: " + drv[0]);
-		drv[1] = ((driv[0] * .75) + driv[1] * .75 + (driv[2])) * .96;
+		drv[1] = ((driv[0] * .75) + driv[1] * .75 + (driv[2])) * .5;// * .96;
 		//System.out.println("B: " + drv[1]);
-		drv[2] = -(driv[0] * .75) + (driv[1] * .75) + (driv[2]);
+		drv[2] = -(driv[0] * .75) + (driv[1] * .75) + (driv[2]) * .5;
 		//System.out.println("C: " + drv[2]);
-		drv[3] = (-(driv[0] * .75) - (driv[1] * .75) + (driv[2])) * .96;
+		drv[3] = (-(driv[0] * .75) - (driv[1] * .75) + (driv[2])) * .5;// * .96;
 		//System.out.println("D: " + drv[3]);
 		return drv;
 	}

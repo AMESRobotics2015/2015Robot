@@ -40,10 +40,15 @@ public class InputManager{
 	}
 	
 	public static double[] getAxisValue(){
-		
+	/*	
 		axis[0] = ps2controller.getRawAxis(3);//y axis 
 		axis[1] = -ps2controller.getRawAxis(2);//x axis
 		axis[2] = ps2controller.getRawAxis(0);//pivoting
+		*/
+		
+		axis[0] = ps2controller.getRawAxis(1);//y axis 
+		axis[1] = -ps2controller.getRawAxis(0);//x axis
+		axis[2] = ps2controller.getRawAxis(2);//pivoting
 		//axis = deadZone(axis);//transforms the array to deadzone to round values as necessary (ex. -0.03 to 0)
 		return axis;
 		
@@ -79,6 +84,11 @@ public class InputManager{
 		
 	}
 	
+	public static boolean getwat()
+	{
+		 return ps2controller.getRawButton(3);
+		
+	}
 	/**
 	 * transforms the array to deadzone to round values as necessary (ex. 0.02 to 0)
 	 * @param axis

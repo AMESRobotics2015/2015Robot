@@ -36,13 +36,13 @@ public class Reader {
 		 
 		try
 	      {
-	         FileInputStream fileIn = new FileInputStream("./Counter.JSON");
+	         FileInputStream fileIn = new FileInputStream("/home/lvuser/auto/Counter.JSON");
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
 	         reader = (int) in.readObject();
 	         in.close();
 	         fileIn.close();		         
-	      }catch(IOException i){ return 0;}
-		   catch(ClassNotFoundException c){return 0;}
+	      }catch(IOException i){ return 1;}
+		   catch(ClassNotFoundException c){return 1;}
 		
 		return reader;			
 	}

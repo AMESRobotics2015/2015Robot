@@ -3,6 +3,7 @@ package org.usfirst.frc.team3243.robot;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
+import java.io.*;
 
 
 public class Recorder implements java.io.Serializable {
@@ -10,13 +11,13 @@ public class Recorder implements java.io.Serializable {
 	ArrayList<Double> Data1 = new ArrayList<Double>();
 	ArrayList<Double> Data2 = new ArrayList<Double>();	
 	ArrayList<Double> ElevData = new ArrayList<Double>();//gets joystick input for elevator
-	static Timer stopRecord= new Timer(); //creates timer object to stop recording after 15 seconds
-	static int counter = Reader.getCounter();//sets value of recording counter to the last recording value
-	static int planNumber = 1;//number of plan to execute on playback
-	static boolean isRead= false;//checks to see if the file was correctly read
-	static boolean startRecord = false;
-	static boolean writeToFile =false;
-	InputManager IM = new InputManager();
+	static transient Timer stopRecord= new Timer(); //creates timer object to stop recording after 15 seconds
+	static transient int counter = Reader.getCounter();//sets value of recording counter to the last recording value
+	static transient int planNumber = 1;//number of plan to execute on playback
+	static transient boolean isRead= false;//checks to see if the file was correctly read
+	static transient boolean startRecord = false;
+	static transient boolean writeToFile =false;
+	transient InputManager IM = new InputManager();
 	
 	private class recordingTimer extends TimerTask{//creates task to run after15 seconds
 

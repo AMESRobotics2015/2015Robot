@@ -25,6 +25,7 @@ public class Robot extends IterativeRobot {
 	private Recorder R;
 	private Writer WR;
 	private Reader RE;
+	int i;
 	
     public void robotInit() {
     	IM = new InputManager();
@@ -33,6 +34,7 @@ public class Robot extends IterativeRobot {
     	R = new Recorder();
     	WR = new Writer();
     	RE = new Reader(); 	    	
+        i = 0;
     }
 
     /**
@@ -53,9 +55,14 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	//while(true){
-    		MC.driveomni(IM.getFinalAxis(S.gyread()));
-    		//MC.driveomni(IM.getFinalAxis()); // this is in case our new drive code fails and we want to fall back on old stuff.
-    		
+    		//MC.driveomni(IM.getFinalAxis(S.gyread()));
+    		//MC.driveomni(IM.getAxisValue()); // this is in case our new drive code fails and we want to fall back on old stuff.
+    	if(IM.getwat()){
+    		MC.mandriv(-.3);
+    	}
+    	else{
+    		MC.mandriv(.3);
+    	}
     		R.getDriveData(IM.getFinalAxis(S.gyread()));
     		if(RobotMap.writeToFile){
     			WR.writeData(R);
