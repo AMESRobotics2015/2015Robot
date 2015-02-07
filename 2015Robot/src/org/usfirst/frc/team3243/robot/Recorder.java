@@ -11,6 +11,7 @@ public class Recorder implements java.io.Serializable {
 	ArrayList<Double> Data1 = new ArrayList<Double>();
 	ArrayList<Double> Data2 = new ArrayList<Double>();	
 	ArrayList<Double> ElevData = new ArrayList<Double>();//gets joystick input for elevator
+	ArrayList<Double> GrabberData = new ArrayList<Double>();	
 	static transient Timer stopRecord= new Timer(); //creates timer object to stop recording after 15 seconds
 	static transient int counter = Reader.getCounter();//sets value of recording counter to the last recording value
 	static transient int planNumber = 1;//number of plan to execute on playback
@@ -33,15 +34,13 @@ public class Recorder implements java.io.Serializable {
 	}	
 	
 	public void getDriveData(double[] array){//gets data from joystick array
-		//if (array[0]!=0 || array[1]!=0 || array[2]!=0 || array[3]!=0){//checks to see if joystick value != 0 
-			//startRecord = true;//sets recording to begin			
-		//}
+		
 		IM.record();
 		if(RobotMap.clearData){//clears data if not already cleared
 			this.Data0.clear();
 			this.Data1.clear();
 			this.Data2.clear();
-			//this.ElevData.clear();
+			
 			RobotMap.clearData = false;//stops clearing of data
 		}else if (RobotMap.isRecording /*&& startRecord */){//starts recording if button is pressed and joystick has been changed
 			
@@ -67,13 +66,13 @@ public class Recorder implements java.io.Serializable {
 			playArray[0]=0;
 			playArray[1]=0;
 			playArray[2]=0;
-			//playArray[3]=0;
+			
 		}else
 		{
 			playArray[0]=this.Data0.get(RobotMap.playIncrement);//sets array elements to saved ones
 			playArray[1]=this.Data1.get(RobotMap.playIncrement);
 			playArray[2]=this.Data2.get(RobotMap.playIncrement);
-			//playArray[3]=this.ElevData.get(RobotMap.playIncrement);
+			
 			++RobotMap.playIncrement;//increments element of arraylist
 		}
 		
