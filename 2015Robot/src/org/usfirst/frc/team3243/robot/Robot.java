@@ -63,6 +63,7 @@ public class Robot extends IterativeRobot {
     	else{
     		MC.mandriv(.3);
     	}*/
+    		/*
     		R.getDriveData(IM.getFinalAxis(S.gyread()));
     		if(RobotMap.writeToFile){
     			WR.writeData(R);
@@ -75,6 +76,7 @@ public class Robot extends IterativeRobot {
     		{
     			S.G.reset();
     		}
+    		*/
     		
     	//}
     	  
